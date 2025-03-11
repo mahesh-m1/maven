@@ -1,0 +1,25 @@
+node('built-in') 
+{
+    stage('ContDownload') 
+    {
+        git 'https://github.com/IntelliqDevops/mymaven.git'
+    }
+    stage('ContBuild') 
+    {
+        sh 'mvn package'
+    }
+    stage('ContDeploy') 
+    {
+        deploy adapters: [tomcat9(credentialsId: 'd84ed1ec-d7e1-4011-914b-efef0fd55f09', path: '', url: 'http://172.31.4.123:8080')], contextPath: 'testapp', war: '**/*.war'
+    }
+    stage('ContTesting') 
+    {
+        git 'https://github.com/IntelliqDevops/FunctionalTesting.git'
+        
+        sh 'java -jar /var/lib/jenkins/workspace/Scriptedpipeline/testing.jar'
+    }
+    stage('ContDelivery') 
+    {
+        deploy adapters: [tomcat9(credentialsId: 'd84ed1ec-d7e1-4011-914b-efef0fd55f09', path: '', url: 'http://172.31.11.230:8080')], contextPath: 'prodapp', war: '**/*.war'
+    }
+}
