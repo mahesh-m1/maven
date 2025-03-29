@@ -19,8 +19,7 @@ pipeline
                         exit(1)
                     }
                 }
-                
-            }
+             }
         }
         stage('Cont-Build')
         {
@@ -38,8 +37,7 @@ pipeline
                         exit(1)
                     }
                 }
-                
-            }
+             }
         }
         stage('Cont-Deploy')
         {
@@ -57,7 +55,6 @@ pipeline
                         exit(1)
                     }
                 }
-                
             }
         }
         stage('Cont-Testing')
@@ -78,7 +75,6 @@ pipeline
                         exit(1)
                     }
                 }
-                
             }
         }
         stage('Cont-Delivery')
@@ -96,9 +92,7 @@ pipeline
                         mail bcc: '', body: 'Jenkins unable to deploy into tomcat on prod servers ', cc: '', from: '', replyTo: '', subject: 'Testing Failed', to: 'delivery.admin@gmail.com'
                     }
                 }
-                
-            }
-        }
-     
-    }
+             }
+         }
+     }
 }
