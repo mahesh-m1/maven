@@ -1,0 +1,60 @@
+@Library('mylibrary')_
+pipeline
+{
+    agent any 
+    stages
+    {
+        stage('Cont-Download')
+        {
+            steps
+            {
+                script
+                {
+                    cicd.gitDownload("maven")
+                }
+            }
+        }
+        stage('Cont-Build')
+        {
+            steps
+            {
+                script
+                {
+                     cicd.mavenBuild()
+                }
+            }
+        }
+        stage('Cont-Deploy')
+        {
+            steps
+            {
+                script
+                {
+                     cicd.tomcatDeploy("DecPipelineWithSharedLibrary","172.31.14.8","tapp")
+                }
+            }
+        }
+        stage('Cont-Testing')
+        {
+            steps
+            {
+                script
+                {
+                     cicd.gitDownload("FunctionalTesting")
+                     
+                     cicd.executeSelinium("DecPipelineWithSharedLibrary")
+                }
+            }
+        }
+        stage('Cont-Delivery')
+        {
+            steps
+            {
+                script
+                {
+                     cicd.tomcatDeploy("DecPipelineWithSharedLibrary","172.31.13.222","papp")
+                }
+            }
+        }
+    }
+}
