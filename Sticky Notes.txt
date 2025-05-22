@@ -1,0 +1,12 @@
+                                 GIT TOKEN
+
+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
+
+UAN Login
+101441633683
+R@!nbow@2109
+
+
+<tomcat-users>
+        <user username="admin" password="password" roles="manager-script"/>
+</tomcat-users>
